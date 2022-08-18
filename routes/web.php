@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CrudEmpController;
+// use App\Http\Controllers\CrudEmpController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,28 +18,21 @@ use App\Http\Controllers\CrudEmpController;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard');   
 })->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
-
-
+Route::resource('employees','EmployeeController');  
 Route::get('check',function(){
-
     if(DB::connection()->getPdo())
             {
-                echo "Successfully connected to the database => "
-                             .DB::connection()->getDatabaseName();
+                echo " Successfully connected to the database => ".DB::connection()->getDatabaseName();
             }
-
-
-
-
 });
 
-Route::resource('employe','CrudEmpController');  
+
+
+ 
 
 
 
