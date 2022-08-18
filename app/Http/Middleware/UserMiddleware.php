@@ -23,13 +23,11 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-           if( Auth::check()){               
-            return $next($request);              
-            }
-            else{
-                // dd($request->id);
-                // echo $own;
-                abort(404);                
-            }        
+        if( Auth::check()){               
+        return $next($request);              
+        }
+        else{              
+            abort(404);                
+        }        
     }
 }
