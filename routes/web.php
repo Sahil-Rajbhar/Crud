@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\CrudEmpController;
+
 use App\Http\Controllers\EmployeeController;
 
 /*
@@ -18,8 +18,13 @@ use App\Http\Controllers\EmployeeController;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/dashboard', function () {
-    return view('dashboard');   
+    $user = auth()->user();
+    $userName = $user->name;
+    return view('dashboard',compact('userName'));   
 })->middleware(['auth'])->name('dashboard');
+
 require __DIR__.'/auth.php';
+
 Route::resource('employees','EmployeeController');  

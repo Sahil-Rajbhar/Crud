@@ -43,6 +43,9 @@
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('employees.index')">
+                                {{ __('Employees') }}
+                            </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>

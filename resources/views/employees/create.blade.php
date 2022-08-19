@@ -5,64 +5,54 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Adding new employe</title>
-         <style>
-            .container{
-                border:2px solid black;
-                text-align:center;
-                height: 15cm;
-                padding-top:30px;
-                width:500px;
-                margin:0 auto;
-            }
-            span{
-                color:red;
-            }
-            .link{
-                width:200px;
-                align-items: center;
-                background-color:white;
-                border:1px solid black;
-                color:black;
-                padding:10px 10px; 
-                text-decoration: none;        
-            }
-            button{
-                background-color:white;
-                color:black;
-                border:1px solid black;
-                padding:10px 10px;
-            }   
-         </style>
+        <link rel="stylesheet" href="{{ asset('css/Style.css') }}">
     </head>
     <body>
-        <center><h1 class = "heading">Adding new Employee</h1></center>
-        <hr>
-        <div class="container">
-            <form method="post" action="{{ route('employees.store') }} ">  
-                @csrf   
-                <center><h1>Enter Employee Details</h1></center>
-                <div class="form-group">      
-                    <label for="first_name">Employee Name:</label><br/><br/>  
-                    <input type="text" class="form-control" name="Employee_Name" value = "{{ old('Employee_Name') }}"><br/><br/>  
-                    @if ($errors->has('Employee_Name'))
-                    <ul>
-                        <li><span>{{ $errors->first('Employee_Name') }}</span></li>
-                    </ul>
-                    @endif
-                </div>  
-                <div class="form-group">      
-                    <label for="first_name">Employee Email:</label><br/><br/>  
-                    <input type="text" class="form-control" name="Employee_Email" value = "{{ old('Employee_Email') }}"><br/><br/>  
-                    @if ($errors->has('Employee_Email'))
-                    <ul>
-                        <li><span>{{ $errors->first('Employee_Email') }}</span></li>
-                    </ul>
-                    @endif
-                </div>   
-                <br/>  
-                <a href="/employees" class = "link">Cancel</a>
-                <button type="submit" class="btn-btn" >Add</button>  
-            </form>  
-        </div>   
+        <x-app-layout>
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Dashboard') }}
+                </h2>
+            </x-slot>
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">                           
+                            <center><h1 class="heading">Adding new Employee</h1></center>
+                            <hr>
+                            <div class="create-container">
+                                <form method="post" action="{{ route('employees.store') }}">  
+                                    @csrf   
+                                    {{-- <center><h1>Enter Employee Details</h1></center> --}}
+                                    <div class="form-group">      
+                                        <label for="first_name">Employee Name:</label> &nbsp; 
+                                        <input type="text" class="form-control" name="Employee_Name" value="{{ old('Employee_Name') }}"><br/><br/> 
+                                        @if ($errors->has('Employee_Name'))
+                                            <ul>
+                                                <li><span>{{ $errors->first('Employee_Name') }}</span></li>
+                                            </ul>
+                                        @endif
+                                        <br> 
+                                    </div>  
+                                    <div class="form-group">      
+                                        <label for="first_name">Employee Email:</label> &nbsp; 
+                                        <input type="text" class="form-control" name="Employee_Email" value="{{ old('Employee_Email') }}"><br/><br/>  
+                                        @if ($errors->has('Employee_Email'))
+                                            <ul>
+                                                <li><span>{{ $errors->first('Employee_Email') }}</span></li>
+                                            </ul>
+                                        @endif
+                                        <br/> 
+                                    </div>   
+                                    <br/>  
+                                    <a href="/employees" class="create-link">Cancel</a> &nbsp;
+                                    <button type="submit" class="create-add" >Add</button>  
+                                </form>  
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </x-app-layout>    
     </body>
 </html>

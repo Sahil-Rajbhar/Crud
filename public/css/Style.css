@@ -1,0 +1,118 @@
+/* edit.blade.php */
+
+.edit-container {
+    margin-left: 15em;
+    text-align: center;
+    padding: 50px;
+}
+
+.cancel-edit {
+    width: 200px;
+    align-items: center;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    padding: 10px 10px;
+    text-decoration: none;
+}
+
+button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    height: 3em;
+    width: 80px;
+}
+
+.title {
+    font-size: 30px;
+    font-family: Abril Fatface;
+}
+
+/* index.blade.php */
+
+td {
+    padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #0001;
+}
+
+.employe-table {
+    align-items: center;
+    border: 5px solid #0001;
+    text-align: center;
+}
+
+.listing-table-heading {
+    background-color: #0003;
+}
+
+.index-buttons {
+    align-items: center;
+
+}
+
+.add-Button {
+    width: 200px;
+    align-items: center;
+    background-color: #0003;
+    margin-left: 60em;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+.status-message {
+    text-align: center;
+    color: green;
+}
+
+/* create.blade.php */
+
+.create-container {
+    text-align: center;
+    padding-top: 30px;
+    margin: 0 auto;
+}
+
+span {
+    color: red;
+}
+
+.create-link {
+    width: 200px;
+    align-items: center;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    padding: 12px 12px;
+    text-decoration: none;
+}
+
+.heading {
+    font-size: 40px;
+    font-family: Abril Fatface;
+}
+
+.create-add {
+    width: 80px;
+    padding: 9px 9px;
+}
+
+/* show.blade.php */
+
+.show-table {
+    text-align: center;
+    margin: 0px auto;
+}
+
+.show-heading {
+    background-color: #0002;
+}
+
+.show-title {
+    font-size: 30px;
+    font-family: Abril Fatface;
+}

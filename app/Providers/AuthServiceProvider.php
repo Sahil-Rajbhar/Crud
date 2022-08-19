@@ -1,12 +1,12 @@
 <?php
 
-
-
 namespace App\Providers;
-use App\User;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+use App\User;
+
+use Illuminate\Support\Facades\Gate;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,9 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('employe-edit', function ($user , $employeData)
+        
+        Gate::define('employe-edit', function($user, $employeeData)
         {           
-            return $user->id === $employeData->owner;
+            return $user->id === $employeeData->user_id;
         });        
     }
 }

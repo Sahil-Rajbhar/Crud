@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 
 use Auth;
 
-// use App\Models\EmpData;
-
 class UserMiddleware
 {
     /**
@@ -23,8 +21,8 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if( Auth::check()){               
-        return $next($request);              
+        if(Auth::check()){               
+            return $next($request);              
         }
         else{              
             abort(404);                
