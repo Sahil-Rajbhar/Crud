@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Http\Request;
 
+use App\Models\Employee;
+
 use App\Http\Controllers\EmployeeController;
 
-use DB;
+use Illuminate\Database\Eloquent\Model;
+
 
 class EmployeeController extends Controller
 {
@@ -26,8 +29,8 @@ class EmployeeController extends Controller
     {       
         $user = auth()->user();    
         $loggedId = $user->id;   
-        $data = DB::select('select * from employees where user_id = ?', [$loggedId]);    
-        return view('employees.index', ['data' => $data]);
+        $employees = Employee::where('user_id', '=', $loggedId)->get();   
+        return view('employees.index', ['employees' => $employees]);
     }
 
     /**
@@ -50,14 +53,19 @@ class EmployeeController extends Controller
     {       
         $user = auth()->user();
         $admin = $user->id;
-        $name = $request->input('Employee_Name');
-        $email = $request->input('Employee_Email');
         $this->validate($request, [
-            'Employee_Name' => 'required|String',
-            'Employee_Email' => 'required|email|unique:employees,email',
+            'name' => 'required|String',
+            'email' => 'required|email|unique:employees,email',
         ]);
-        DB::insert('insert into employees (name,email,user_id)values(?, ?, ?)',[$name, $email, $admin]);
-        return redirect('employees')->with('addMessage', 'Employe added Successfully');
+        $employee = new Employee();
+        $employee->name = $request->name;
+        $employee->email = $request->email;
+        $user = auth()->user();
+        $admin = $user->id;
+        $employee->user_id = $admin;        
+        if($employee->save()){
+            return redirect('employees')->with('addMessage', 'employe added successfully');
+        }         
     }
 
     /**
@@ -66,34 +74,31 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        $employeeData = DB::table('employees')->select('user_id')->where('id', $id)->first();
-        if (Gate::allows('employe-edit', $employeeData)) {
-            $infomation = DB::select('select * from employees where id = ?', [$id]);       
-            return view('employees.show',  ['infomation' => $infomation]);
+
+        if (Gate::allows('employe-edit', $employee)) {          
+            return view('employees.show', compact('employee'));
         }
         else {
             abort(404);
         }
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {  
-        $employeeData = DB::table('employees')->select('user_id')->where('id', $id)->first();
-        if (Gate::allows('employe-edit', $employeeData)) {
-            $retrievedData = DB::select('select * from employees where id = ?', [$id]);  
-            return view('employees.edit',  ['retrievedData' => $retrievedData]);           
+        if (Gate::allows('employe-edit', $employee)) { 
+            return view('employees.edit', compact('employee'));           
         }
         else {
             abort(404);
-        }  
+        }                 
     }
 
     /**
@@ -111,8 +116,12 @@ class EmployeeController extends Controller
             'employee_name' => 'required',
             'employee_email' => 'required|email|unique:employees,email,'.$id,           
         ]);       
-        DB::update('update employees set name = ?, email = ? where id = ?',[$name, $email, $id]);   
-        return redirect('employees')->with('updateMessage', 'Employe updated Successfully');       
+        $employee = Employee::find($id);
+        $employee->name = $name;
+        $employee->email = $email;
+        $employee->save();
+        return redirect('employees')->with('updateMessage','employe updated successfully'); 
+
     }
     
     /**
@@ -121,9 +130,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {  
-        DB::delete('delete from employees where id = ?', [$id]);       
-        return redirect('employees')->with('message', 'Employe Deleted Successfully');          
+        $employee->delete();
+        return redirect('employees')->with('message','employee has been deleted successfully');
     }
+
 }

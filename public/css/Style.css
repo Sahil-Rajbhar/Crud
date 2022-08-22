@@ -1,7 +1,7 @@
 /* edit.blade.php */
 
 .edit-container {
-    margin-left: 15em;
+    margin-left: 36em;
     text-align: center;
     padding: 50px;
 }
@@ -25,8 +25,12 @@ button {
 }
 
 .title {
-    font-size: 30px;
+    font-size: 40px;
     font-family: Abril Fatface;
+}
+
+.edit-update {
+    background-color: white;
 }
 
 /* index.blade.php */
@@ -56,12 +60,15 @@ td {
 
 .add-Button {
     width: 200px;
-    align-items: center;
     background-color: #0003;
-    margin-left: 60em;
+    margin-left: 80em;
+    top: 123px;
     padding: 10px;
+    text-align: center;
     border: 1px solid black;
     border-radius: 20px;
+    position: absolute;
+
 }
 
 .status-message {
@@ -75,6 +82,9 @@ td {
     text-align: center;
     padding-top: 30px;
     margin: 0 auto;
+    width: 700px;
+    height: 10cm;
+    background-color: white;
 }
 
 span {
@@ -115,4 +125,14 @@ span {
 .show-title {
     font-size: 30px;
     font-family: Abril Fatface;
+}
+
+.index-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.outer-container {
+    position: relative;
 }
