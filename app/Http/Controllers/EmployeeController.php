@@ -20,6 +20,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function __construct()
     { 
         $this->middleware('UserMiddleware')->only(['index']);
@@ -28,9 +29,10 @@ class EmployeeController extends Controller
     public function index()
     {       
         $user = auth()->user();    
-        $loggedId = $user->id;   
-        $employees = Employee::where('user_id', '=', $loggedId)->get();   
-        return view('employees.index', ['employees' => $employees]);
+        // $loggedId = $user->id;   
+        // $employees = Employee::where('user_id', '=', $user->id)->get();  
+        $employees = Employee::whereBelongsTo($user)->get(); 
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -51,8 +53,6 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {       
-        $user = auth()->user();
-        $admin = $user->id;
         $this->validate($request, [
             'name' => 'required|String',
             'email' => 'required|email|unique:employees,email',
@@ -60,11 +60,11 @@ class EmployeeController extends Controller
         $employee = new Employee();
         $employee->name = $request->name;
         $employee->email = $request->email;
-        $user = auth()->user();
-        $admin = $user->id;
-        $employee->user_id = $admin;        
+        $employee->user()->associate($request->user());  
         if($employee->save()){
-            return redirect('employees')->with('addMessage', 'employe added successfully');
+            return redirect('employees')->with('success', 'employe added successfully');
+        } else {
+            return redirect('employees')->with('error', 'employe not added successfully'); 
         }         
     }
 
@@ -119,9 +119,11 @@ class EmployeeController extends Controller
         $employee = Employee::find($id);
         $employee->name = $name;
         $employee->email = $email;
-        $employee->save();
-        return redirect('employees')->with('updateMessage','employe updated successfully'); 
-
+        if ($employee->save()) {
+            return redirect('employees')->with('success','employe updated successfully');     
+        } else {
+            return redirect('employees')->with('error','employe not updated '); 
+        }
     }
     
     /**
@@ -132,8 +134,13 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {  
-        $employee->delete();
-        return redirect('employees')->with('message','employee has been deleted successfully');
+        if ($employee->delete()) {
+            return redirect('employees')->with('success', 'employee has been deleted successfully');
+        } else {
+            return redirect('employees')->with('error', 'employee not deleted ');
+        }
+        
     }
 
+    
 }

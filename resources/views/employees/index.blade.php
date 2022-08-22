@@ -3,21 +3,16 @@
     <a href="{{ route('employees.create') }}" class="add-Button">Add new employe</a>
     <div class="outer-container">        
         <div class="index-container">
-            @if(session()->has('addMessage')) 
+            @if(session()->has('success')) 
                 <div class="status-message">
-                {{ session()->get('addMessage') }}
+                {{ session()->get('success') }}
             </div>
             @endif
-            @if(session()->has('message')) 
+            @if(session()->has('error')) 
             <div class="status-message">
-                {{ session()->get('message') }}
+                {{ session()->get('error') }}
             </div>
-            @endif
-            @if(session()->has('updateMessage')) 
-            <div class="status-message">
-                {{ session()->get('updateMessage') }}
-            </div>
-            @endif
+            @endif            
             <table class="employe-table">  
                 <br>
                 <br>      
