@@ -26,13 +26,11 @@ class EmployeeController extends Controller
         $this->middleware('UserMiddleware')->only(['index']);
     }
 
-    public function index()
-    {       
-        $user = auth()->user();    
-        // $loggedId = $user->id;   
-        // $employees = Employee::where('user_id', '=', $user->id)->get();  
-        $employees = Employee::whereBelongsTo($user)->get(); 
-        return view('employees.index', compact('employees'));
+    public function index(Request $request)
+    {
+        return view('employees.index', [
+            'employees' => $request->user()->employees
+        ]);
     }
 
     /**
@@ -54,18 +52,19 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {       
         $this->validate($request, [
-            'name' => 'required|String',
+            'name' => 'required|string',
             'email' => 'required|email|unique:employees,email',
         ]);
-        $employee = new Employee();
-        $employee->name = $request->name;
-        $employee->email = $request->email;
-        $employee->user()->associate($request->user());  
-        if($employee->save()){
-            return redirect('employees')->with('success', 'employe added successfully');
-        } else {
-            return redirect('employees')->with('error', 'employe not added successfully'); 
-        }         
+
+        $employee = $request->user()->employees()->create([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect('employees')->with([
+            'status'=>'Adding employee data',
+            'message'=>'Employee added successfully'
+        ]);
     }
 
     /**
@@ -108,22 +107,22 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {    
-        $name = $request->input('employee_name');
-        $email = $request->input('employee_email');       
-        $this->validate($request,[           
-            'employee_name' => 'required',
-            'employee_email' => 'required|email|unique:employees,email,'.$id,           
-        ]);       
-        $employee = Employee::find($id);
-        $employee->name = $name;
-        $employee->email = $email;
-        if ($employee->save()) {
-            return redirect('employees')->with('success','employe updated successfully');     
-        } else {
-            return redirect('employees')->with('error','employe not updated '); 
-        }
+       $this->validate($request,[           
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email,'.$employee->id,           
+        ]);
+
+        $employee->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+        
+        return redirect('employees')->with([
+            'status'=>'Updating employee data',
+            'message'=>'Employee updated successfully',
+            ]);
     }
     
     /**
@@ -134,12 +133,10 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {  
-        if ($employee->delete()) {
-            return redirect('employees')->with('success', 'employee has been deleted successfully');
-        } else {
-            return redirect('employees')->with('error', 'employee not deleted ');
-        }
-        
+        $employee->delete();
+        return redirect('employees')->with([
+            'status'=>'Deleting employee data',
+            'message'=>'Employee deleted successfully',]);    
     }
 
     

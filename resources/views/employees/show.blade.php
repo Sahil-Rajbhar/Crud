@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{{ asset('css/Style.css') }}">
 @component('layouts.app')
     <center><h1 class="show-title">Employe Details</h1></center>
     <hr>

@@ -1,18 +1,14 @@
-<link rel="stylesheet" href="{{ asset('css/Style.css') }}">
 @component('layouts.app')
-    <a href="{{ route('employees.create') }}" class="add-Button">Add new employe</a>
-    <div class="outer-container">        
-        <div class="index-container">
-            @if(session()->has('success')) 
-                <div class="status-message">
-                {{ session()->get('success') }}
-            </div>
-            @endif
-            @if(session()->has('error')) 
-            <div class="status-message">
-                {{ session()->get('error') }}
-            </div>
-            @endif            
+    <div class="add-Button">
+        <a href="{{ route('employees.create') }}" class="hover:bg-blue-400 group flex items-center rounded-md bg-blue-500 text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm w-32"> 
+            New employee +
+        </a>
+    </div>
+    <div class="outer-container">  
+        <div class="status-message">
+            {{ session()->get('message') }}
+        </div>                     
+        <div class="index-container">                             
             <table class="employe-table">  
                 <br>
                 <br>      
@@ -33,7 +29,11 @@
                             <form action="{{ route('employees.destroy',$employee->id) }}" method="POST" onsubmit="return confirm('are you sure ?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-primary">delete</button>
+                                {{-- <button type="submit" class="btn btn-primary">delete</button> --}}
+                                <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                                    Delete
+                                </button>
+                                  
                             </form>
                         </td>
                     </tr>

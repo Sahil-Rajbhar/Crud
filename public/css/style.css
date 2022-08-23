@@ -24,9 +24,10 @@ button {
     width: 80px;
 }
 
-.title {
+.edit-title {
     font-size: 40px;
     font-family: Abril Fatface;
+    margin: 0px auto;
 }
 
 .edit-update {
@@ -47,6 +48,7 @@ td {
     align-items: center;
     border: 5px solid #0001;
     text-align: center;
+    background-color: white;
 }
 
 .listing-table-heading {
@@ -60,15 +62,9 @@ td {
 
 .add-Button {
     width: 200px;
-    background-color: #0003;
-    margin-left: 80em;
+    margin-left: 85em;
     top: 123px;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 20px;
     position: absolute;
-
 }
 
 .status-message {
@@ -83,8 +79,9 @@ td {
     padding-top: 30px;
     margin: 0 auto;
     width: 700px;
-    height: 10cm;
+    height: 12cm;
     background-color: white;
+    border: 1px solid black
 }
 
 span {
@@ -104,6 +101,7 @@ span {
 .heading {
     font-size: 40px;
     font-family: Abril Fatface;
+    top: 10px;
 }
 
 .create-add {
