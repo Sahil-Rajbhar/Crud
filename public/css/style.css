@@ -1,9 +1,10 @@
 /* edit.blade.php */
-
 .edit-container {
-    margin-left: 36em;
+    margin: 0px auto;
     text-align: center;
     padding: 50px;
+    background-color: white;
+    width: 400px;
 }
 
 .cancel-edit {
@@ -16,22 +17,10 @@
     text-decoration: none;
 }
 
-button {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-    height: 3em;
-    width: 80px;
-}
-
 .edit-title {
     font-size: 40px;
     font-family: Abril Fatface;
     margin: 0px auto;
-}
-
-.edit-update {
-    background-color: white;
 }
 
 /* index.blade.php */
@@ -41,29 +30,26 @@ td {
     padding-left: 70px;
     padding-top: 30px;
     padding-bottom: 30px;
-    background-color: #0001;
+    background-color: white;
 }
 
 .employe-table {
     align-items: center;
-    border: 5px solid #0001;
+    border: 3px solid #0A87F7;
     text-align: center;
-    background-color: white;
 }
 
 .listing-table-heading {
     background-color: #0003;
-}
-
-.index-buttons {
-    align-items: center;
-
+    font-family: Rubik Dirt;
+    font-size: 30px;
+    border-bottom: 5px;
 }
 
 .add-Button {
     width: 200px;
-    margin-left: 85em;
-    top: 123px;
+    margin-left: 90em;
+    top: 130px;
     position: absolute;
 }
 
@@ -74,39 +60,8 @@ td {
 
 /* create.blade.php */
 
-.create-container {
-    text-align: center;
-    padding-top: 30px;
-    margin: 0 auto;
-    width: 700px;
-    height: 12cm;
-    background-color: white;
-    border: 1px solid black
-}
-
 span {
     color: red;
-}
-
-.create-link {
-    width: 200px;
-    align-items: center;
-    background-color: white;
-    border: 1px solid black;
-    color: black;
-    padding: 12px 12px;
-    text-decoration: none;
-}
-
-.heading {
-    font-size: 40px;
-    font-family: Abril Fatface;
-    top: 10px;
-}
-
-.create-add {
-    width: 80px;
-    padding: 9px 9px;
 }
 
 /* show.blade.php */
@@ -126,11 +81,17 @@ span {
 }
 
 .index-container {
-    display: flex;
-    justify-content: center;
+
     margin-top: 70px;
+    margin-left: 300px;
 }
 
 .outer-container {
     position: relative;
+}
+
+th {
+    padding-left: 150px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\EmployeeController;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Http\Requests\StoreEmployeeRequest;
+
 
 class EmployeeController extends Controller
 {
@@ -29,7 +31,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         return view('employees.index', [
-            'employees' => $request->user()->employees
+            'employees' => $request->user()->employees()->paginate(5)
         ]);
     }
 
@@ -49,12 +51,8 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {       
-        $this->validate($request, [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:employees,email',
-        ]);
 
         $employee = $request->user()->employees()->create([
             'name' => $request->name,
@@ -101,19 +99,15 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(StoreEmployeeRequest $request, Employee $employee)
     {    
-       $this->validate($request,[           
-            'name' => 'required',
-            'email' => 'required|email|unique:employees,email,'.$employee->id,           
-        ]);
-
+ 
         $employee->update([
             'name' => $request->name,
             'email' => $request->email,
