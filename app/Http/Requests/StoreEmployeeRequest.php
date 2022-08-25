@@ -23,15 +23,19 @@ class StoreEmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('PUT')) {
-             return[           
-            'name' => 'required',
-            'email' => 'required|email|unique:employees,email,'.$this->input('id'),           
-            ];            
-        }
+        // if ($this->isMethod('PUT')) {
+        //      return[           
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:employees,email,'.$this->input('id'),           
+        //     ];            
+        // } else {
         return [
                 'name' => 'required|string',
                 'email' => 'required|email|unique:employees,email',    
-        ];
-    }
+            ];
+            
+            
+
+        }
+    
 }

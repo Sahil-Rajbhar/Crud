@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Http\Requests\StoreEmployeeRequest;
 
+use Illuminate\Support\Facades\Validator;
+
 
 class EmployeeController extends Controller
 {
@@ -51,9 +53,35 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEmployeeRequest $request)
-    {       
+    public function store(Request $request)
+    {    
+        $this->validate($request, [           
+                'name' => 'required',
+                'email' => 'required|email|unique:employees,email,',                      
+            ]);
+        
+        // $input = $request->only(['email']);
+        
+        // $validator = Validator::make($input, [
+                
+        //         'email' => 'required|email|unique:employees,email',
+        //     ]);
+           
+            // json is null
+            // if ($validator->fails()) {
+            //     $errors = json_decode(json_encode($validator->errors()), 1);
+            //     return response()->json([
+            //         'success' => false,
+            //         'message' => array_reduce($errors, 'array_merge', array()),
+                    
+            //     ]);
+                
+            // } else {
+                
 
+               
+            // }
+        
         $employee = $request->user()->employees()->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -105,18 +133,48 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreEmployeeRequest $request, Employee $employee)
+    public function update(Request $request, Employee $employee)
     {    
- 
+        // $this->validate($request, [           
+        //         'name' => 'required',
+        //         'email' => 'required|email|unique:employees,email,'.$request->id,                      
+        //     ]);
+       
+        $input = $request->only(['email']);
+        // $this->input('id');
+
+       
+       
+        $validator = Validator::make($input, [
+            'email' => 'required|email|unique:employees,email'.$request->id,
+        ]);
+       
+        // json is null
+        if ($validator->fails()) {
+            $errors = json_decode(json_encode($validator->errors()), 1);
+            return response()->json([
+                'success' => false,
+                'message' => array_reduce($errors, 'array_merge', array()),
+            ]);
+        } else {
+            $employee->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+        
+        }
+    
+
         $employee->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
-        
+
         return redirect('employees')->with([
             'status'=>'Updating employee data',
             'message'=>'Employee updated successfully',
             ]);
+            
     }
     
     /**

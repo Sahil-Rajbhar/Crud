@@ -23,7 +23,7 @@
                 @foreach ($employees as $employee)  
                     <tr>
                         <td>{{ $employee->name }}</td>
-                        <td><a href="mailto:">{{ $employee->email }}</a></td>
+                        <td><a href="mailto: {{ $employee->email }}">{{ $employee->email }}</a></td>
                         <td><a href=" {{ route('employees.edit', $employee->id) }} "class="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Edit</a></td>
                         <td><a href="{{ route('employees.show', $employee->id) }} "class="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">View</a></td>
                         <td>              

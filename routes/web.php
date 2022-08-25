@@ -15,6 +15,8 @@ use App\Http\Controllers\EmployeeController;
 |
 */
 
+use App\Http\Controllers\EmployeeEmailValidationController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,4 +29,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('employees','EmployeeController');  
+Route::resource('employees','EmployeeController');
+
+// Route::post('/')
+Route::post('employees/create', [EmployeeEmailValidationController::class, 'index'])->name('email.validate');
