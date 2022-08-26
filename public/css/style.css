@@ -1,4 +1,3 @@
-/* edit.blade.php */
 .edit-container {
     margin: 0px auto;
     text-align: center;
@@ -23,7 +22,7 @@
     margin: 0px auto;
 }
 
-/* index.blade.php */
+
 
 td {
     padding-right: 70px;
@@ -58,13 +57,13 @@ td {
     color: green;
 }
 
-/* create.blade.php */
+
 
 span {
     color: red;
 }
 
-/* show.blade.php */
+
 
 .show-table {
     text-align: center;

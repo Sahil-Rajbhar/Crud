@@ -1,3 +1,4 @@
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 @component('layouts.app')
     <div class="add-Button">
@@ -10,7 +11,7 @@
             {{ session()->get('message') }}           
         </div>                     
         <div class="index-container">                             
-            <table class="employe-table">  
+            <table class="employe-table" id="tabel">  
                 <br>
                 <br>      
                 <tr class="listing-table-heading">
@@ -44,6 +45,7 @@
         {{-- {{ $employees->links() }} --}}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+ 
     <script>
         $('.delete-button').click(function(event) {
           var form =  $(this).closest("form");
@@ -62,4 +64,7 @@
           });
       });
      </script>
+    
+       
+
 @endcomponent

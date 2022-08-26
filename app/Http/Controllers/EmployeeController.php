@@ -56,32 +56,10 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {    
         $this->validate($request, [           
-                'name' => 'required',
-                'email' => 'required|email|unique:employees,email,',                      
-            ]);
-        
-        // $input = $request->only(['email']);
-        
-        // $validator = Validator::make($input, [
-                
-        //         'email' => 'required|email|unique:employees,email',
-        //     ]);
-           
-            // json is null
-            // if ($validator->fails()) {
-            //     $errors = json_decode(json_encode($validator->errors()), 1);
-            //     return response()->json([
-            //         'success' => false,
-            //         'message' => array_reduce($errors, 'array_merge', array()),
-                    
-            //     ]);
-                
-            // } else {
-                
-
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email,',                      
+        ]);
                
-            // }
-        
         $employee = $request->user()->employees()->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -135,36 +113,11 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {    
-        // $this->validate($request, [           
-        //         'name' => 'required',
-        //         'email' => 'required|email|unique:employees,email,'.$request->id,                      
-        //     ]);
-       
-        $input = $request->only(['email']);
-        // $this->input('id');
-
-       
-       
-        $validator = Validator::make($input, [
-            'email' => 'required|email|unique:employees,email'.$request->id,
+        $this->validate($request, [           
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email,'.$request->id,                      
         ]);
        
-        // json is null
-        if ($validator->fails()) {
-            $errors = json_decode(json_encode($validator->errors()), 1);
-            return response()->json([
-                'success' => false,
-                'message' => array_reduce($errors, 'array_merge', array()),
-            ]);
-        } else {
-            $employee->update([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
-        
-        }
-    
-
         $employee->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -173,7 +126,7 @@ class EmployeeController extends Controller
         return redirect('employees')->with([
             'status'=>'Updating employee data',
             'message'=>'Employee updated successfully',
-            ]);
+        ]);
             
     }
     

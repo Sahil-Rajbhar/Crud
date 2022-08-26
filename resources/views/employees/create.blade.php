@@ -13,7 +13,6 @@
                     email: $(this).val(),
                     _token: "{{ csrf_token() }}"
                 }
-
                 $.post("{{ route('email.validate') }}", data)
                     .then(function(){
                         $('.email-error').empty()
