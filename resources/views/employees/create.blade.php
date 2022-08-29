@@ -23,5 +23,5 @@
             })
         });
     </script>
-    <script src="resources/views/js/validation.js"></script>      
+      
 @endcomponent

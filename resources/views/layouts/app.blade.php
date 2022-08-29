@@ -7,7 +7,8 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         {{--  --}}
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+        <script src={{ asset('js/jquery-3.6.1.min.js') }} type="text/javascript"></script>
         
 
         <!-- Fonts -->
@@ -15,7 +16,7 @@
         
       
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/custom.scss' ])
        
     </head>
     <body class="font-sans antialiased">
