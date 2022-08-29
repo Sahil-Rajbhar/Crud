@@ -33,7 +33,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         return view('employees.index', [
-            'employees' => $request->user()->employees()->paginate(5)
+            'employees' => $request->user()->employees
         ]);
     }
 

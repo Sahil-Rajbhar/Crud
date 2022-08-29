@@ -6,7 +6,6 @@
             {{Form::hidden('id', $employee->id)}}
         {{ Form::close() }}
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(function() {
             $('#email').on('keyup', function(){
@@ -14,7 +13,6 @@
                     email: $(this).val(),
                     _token: "{{ csrf_token() }}"
                 }
-
                 $.post("{{ route('email.validate' , $employee->id ) }}", data)
                     .then(function(){
                         $('.email-error').empty()
