@@ -33,3 +33,7 @@ Route::resource('employees','EmployeeController');
 
 // Route::post('/')
 Route::post('employees/create', [EmployeeEmailValidationController::class, 'index'])->name('email.validate');
+
+Route::get('/edit-profile', 'EditProfileController@edit')->name('user.edit');
+
+Route::post('/update/{id}','EditProfileController@update')->name('user.update');

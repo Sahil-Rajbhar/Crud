@@ -7,8 +7,10 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         {{--  --}}
-        {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+     
         <script src={{ asset('js/jquery-3.6.1.min.js') }} type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="/js/datatables.min.css"/>
+        <script type="text/javascript" src="/js/datatables.min.js"></script>
         
 
         <!-- Fonts -->
@@ -16,7 +18,7 @@
         
       
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/custom.scss' ])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/scss/custom.scss', 'resources/js/bootstrap.js' ])
        
     </head>
     <body class="font-sans antialiased">
@@ -35,5 +37,6 @@
                 {{ $slot }}
             </main>
         </div>
+        @stack('js')
     </body>
 </html>

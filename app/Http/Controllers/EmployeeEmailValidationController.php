@@ -10,11 +10,8 @@ class EmployeeEmailValidationController extends Controller
 {
     public function index(Request $request){
         
-        if($request->id!= null){
-            $request->validate([ 'email' => 'unique:employees,email'.$request->id ]);      
-        }
+        return $request->validate([ 'email' => 'unique:employees,email'. $request->id ?? null ]);
 
-        $request->validate([ 'email' => 'unique:employees' ]);
     }
 
 }

@@ -46,6 +46,9 @@
                             <x-dropdown-link :href="route('employees.index')">
                                 {{ __('Employees') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('user.edit')">
+                                {{ __('Edit profile') }}
+                            </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>

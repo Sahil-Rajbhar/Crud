@@ -1,7 +1,4 @@
-
-<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 @component('layouts.app')
-
     <div class="add-Button">
         <a href="{{ route('employees.create') }}" class="hover:bg-blue-400 group flex items-center rounded-md bg-blue-500 text-white text-sm font-medium pl-2 pr-3 py-2 shadow-sm w-32"> 
             New employee +
@@ -45,14 +42,8 @@
         </div>
           {{-- <tr><th colspan="2">{{ $employees->links() }}</th></tr>                       --}}
         {{-- {{ $employees->links() }} --}}
-    </div>
-    {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>  --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script> --}}
-    {{-- <script type="module" src="sweetalert2.all.min.js"></script> --}}
-    {{--  --}}
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    </div>   
     <script>
-    import swal from 'sweetalert';
         $(document).ready( function () {
             $('#table').DataTable();
             // sweet plugin
@@ -60,17 +51,17 @@
                 var form =  $(this).closest("form");
                 var name = $(this).data("name");                
                 event.preventDefault();
-                    swal({
-                        title: `Are you sure ?`,
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            form.submit();
-                    }
-                    });
+                swal({
+                    title: `Are you sure ?`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                }
+                });
             });
         });
      </script>
