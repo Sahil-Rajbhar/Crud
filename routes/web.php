@@ -37,3 +37,5 @@ Route::post('employees/create', [EmployeeEmailValidationController::class, 'inde
 Route::get('/edit-profile', 'EditProfileController@edit')->name('user.edit');
 
 Route::post('/update/{id}','EditProfileController@update')->name('user.update');
+
+Route::post('/edit-profile' , 'EmployeeEmailValidationController@userEmailValidate')->name('user.validate');

@@ -3,10 +3,11 @@
     <div class="mb-4">
         {{ Form::label('name', 'Name' , ['class' => 'block text-gray-700 text-sm font-bold mb-2']) }}    
         {{ Form::text('name', null ,['class'=>'shadow appearance-none border border-blue-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline']) }}<br><br>
+        <p class="name-error"></p>
         @if ($errors->has('name'))
             <ul>
                 <li>
-                    <span>
+                    <span class="text-danger" id="error_name">
                         {{ $errors->first('name') }} 
                     </span>
                 </li>

@@ -8,31 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
 
+use Illuminate\Support\Facades\Validator;
+
 class editProfileController extends Controller
 {
     //
-    public function edit(){
+    public function edit()
+    {
         $user = auth()->user();
         return view('edit_profile',compact('user') );        
     }
     
-    public function update(Request $request){        
+    public function update(Request $request, User $user)
+    {     
+         
         $data = $request->all();
         $user = User::find($request->id);
-        // $this->validate($request,[
-        //     'name'=> 'required',
-        //     'email'=>'required|unique:user,email.'.$request->id
-
-        // ]);     
-        if ($user->update($data)){
-            // return redirect('employees')->with([
-            //     'status'=>'Updating employee data',
-            //     'message'=>'user  updated successfully',
-            // ]);
-        } else{
-            
-            echo "not updated";
-        }
+        
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$request->id,
+        ]);     
+        //  $user->update($data);
+        $user->update([
+            'name' => $request->name,
+            'class' => $request->email,
+        ]);         
+           
     }
 
 

@@ -2,45 +2,55 @@
     <center><h1 class="edit-title">Updating User Data</h1></center>
     <div class="edit-container">
         <div class="msg"></div>
+        <div class="error-message"></div>
         {{ Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'post']), array('class' => 'bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' , 'id' => 'form') }}
             @include('employees._fields', $user)
             {{Form::hidden('id', $user->id)}}
         {{ Form::close() }}
     </div>
-    {{-- @include('employees._email-validate', ['employeeId' => $employee->id]) --}}
-@endcomponent
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(document).on("click", "#submit-button", function() { 
-           
-            var url = "{{URL('update/'.$user->id)}}";
-            // var id= 
-            $.ajax({
-                url: url,
-                type: "post",
-                cache: false,
-                data:{
-                    _token:'{{ csrf_token() }}',
-                    // type: 3,
-                    name: $('#name').val(),
-                    email: $('#email').val()                   
-                },
-                success: function(dataResult){
-                    dataResult = JSON.parse(dataResult);
-                    $('.msg').text("updated")
-                    // console.log(dataResult);
-                 if(dataResult.statusCode)
-                 {
-                    window.location = "/userData";
-                 }
-                 else{
-                    alert("Internal Server Error");
-                 }
+    {{-- @include('employees._email-validate', ['employeeId' => $user->id]) --}}
 
+    @push('js')
+        <script type="text/javascript">
+            $(function(){
+            
+                let $submitBtn = $("#submit-button"); 
+                let $email = $('#email');           
+                $submitBtn.on("click", submitForm); 
+                $email.on("keyup",validateEmail); 
+            
+                function submitForm(e){ 
+                    e.preventDefault();                       
+                    let data = {
+                        name:$('#name').val(),
+                        email:$('#email').val(),
+                        _token:'{{ csrf_token() }}'
+                    }
+                    $.post("{{ route('user.update',$user->id)}}" , data)
+                        .then(function(){                      
+                            $('.msg').text('user updated');
+                        })
+                        .fail(function(error){                                                                      
+                            $('.error-message').text(error.responseJSON.message);                        
+                        })
                 }
+            
+                function validateEmail(){             
+                    let data = {
+                        email: $(this).val(),
+                        _token:"{{csrf_token()}}"
+                    }
+                    $.post("{{route('user.validate', $user->id)}}", data)
+                        .then(function(){
+                            $('.error-message').empty()                        
+                        })
+                        .fail(function(error){                        
+                            $('.error-message').text(error.responseJSON.message)                                                
+                        })
+                }       
             });
-            // event.preventDefault();
-        }); 
-});
+        
+        </script>
+    @endpush
 
-</script>
+@endcomponent
