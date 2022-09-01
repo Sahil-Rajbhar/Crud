@@ -15,9 +15,10 @@
             $(function(){
             
                 let $submitBtn = $("#submit-button"); 
-                let $email = $('#email');           
+                let $email = $('#email');   
+
                 $submitBtn.on("click", submitForm); 
-                $email.on("keyup",validateEmail); 
+                $email.on("keyup", validateEmail); 
             
                 function submitForm(e){ 
                     e.preventDefault();                       
@@ -26,20 +27,23 @@
                         email:$('#email').val(),
                         _token:'{{ csrf_token() }}'
                     }
+
                     $.post("{{ route('user.update',$user->id)}}" , data)
                         .then(function(){                      
                             $('.msg').text('user updated');
                         })
-                        .fail(function(error){                                                                      
+                        .fail(function(error){        
+                            console.log(error)                                                              
                             $('.error-message').text(error.responseJSON.message);                        
                         })
                 }
             
-                function validateEmail(){             
+                function validateEmail(e){             
                     let data = {
                         email: $(this).val(),
                         _token:"{{csrf_token()}}"
                     }
+
                     $.post("{{route('user.validate', $user->id)}}", data)
                         .then(function(){
                             $('.error-message').empty()                        
